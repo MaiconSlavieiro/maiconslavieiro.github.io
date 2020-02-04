@@ -1,7 +1,7 @@
 body {
   padding: 0;
   margin: 0;
-  background-image: linear-gradient(#7cec74, #1ee0bc);
+  background-color: black;
 }
 
 .overlay_start_img {
@@ -29,9 +29,15 @@ body {
   width: 100%;
 }
 
-.maicon_slavieiro {
+#maicon_slavieiro {
   width: 45vw;
   height: auto;
   z-index: -1;
   margin-top: 100vh;
+}
+
+.cls-1 {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 1000;
+  animation: dash 5s linear forwards;
 }
