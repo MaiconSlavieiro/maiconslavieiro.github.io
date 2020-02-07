@@ -18,6 +18,7 @@ class appInstance {
   }
 
   open() {
+
     if (!this.is_fullscreen) {
       this.appInstance.style.width = this.width + "px";
       this.appInstance.style.height = this.height + "px";
@@ -37,44 +38,95 @@ class appInstance {
     var top_bar = document.createElement("div");
     top_bar.classList.add("app__top_bar");
 
+    this.moveApp(this.appInstance, top_bar);    
+
     var min_button = document.createElement("div");
     min_button.classList.add("app__top_bar__min_button");
-    min_button.addEventListener("click", this.minimize, true);
+    min_button.addEventListener("click", this.ocult.bind(this), false);
     top_bar.appendChild(min_button);
+
+    var max_button = document.createElement("div");
+    max_button.classList.add("app__top_bar__max_button");
+    max_button.addEventListener("click", this.resize.bind(this), true);
+    top_bar.appendChild(max_button);
 
     var close_button = document.createElement("div");
     close_button.classList.add("app__top_bar__close_button");
-    close_button.addEventListener("click", this.close, true);
+    close_button.addEventListener("click", this.close.bind(this), false);
     top_bar.appendChild(close_button);
 
     this.appInstance.appendChild(top_bar);
     this.appInstance.appendChild(content);
 
     this.desktop.appendChild(this.appInstance);
+  } 
+
+  moveApp(elmnt, header) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (header) {
+      header.onmousedown = dragMouseDown;
+    } else {
+      elmnt.onmousedown = dragMouseDown;
+    }
+  
+    function dragMouseDown(e) {
+      e = e || window.event;
+      e.preventDefault();
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      document.onmouseup = closeDragElement;
+      document.onmousemove = elementDrag;
+    }
+  
+    function elementDrag(e) {
+      e = e || window.event;
+      e.preventDefault();
+      pos1 = pos3 - e.clientX;
+      pos2 = pos4 - e.clientY;
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    }
+  
+    function closeDragElement() {
+      document.onmouseup = null;
+      document.onmousemove = null;
+    }
   }
 
-  minimize() {
-    try {
-      try {
-        this.appInstance.style.display = "none";
-      } catch (e) {
-        this.offsetParent.style.display = "none";
-      }
-    } catch (e) {
-      console.log(e);
+  ocult() {
+    this.appInstance.style.display = "none";  
+  }
+
+  resize() {   
+    if(this.is_fullscreen) {
+      this.restore();
+    } else {
+      this.maximize();
     }
+  }
+
+  restore() {
+    this.appInstance.style.width = this.width + "px";
+    this.appInstance.style.height = this.height + "px";
+    this.appInstance.style.top = this.x_position + "px";
+    this.appInstance.style.left = this.y_position + "px";
+    this.appInstance.style.zIndex = this.z_position;
+    this.is_fullscreen = false;
+  }
+  
+  maximize() {
+    this.appInstance.style.width = "100vw";  
+    this.appInstance.style.height = "100vh";
+    this.appInstance.style.zIndex = 10000;
+    this.appInstance.style.left = 0;
+    this.appInstance.style.top = 0;  
+      this.is_fullscreen = true;
   }
 
   close() {
-    try {
-      try {
-        this.appInstance.parentNode.removeChild(this.appInstance);
-      } catch (e) {
-        this.offsetParent.parentNode.removeChild(this.offsetParent);
-      }
-    } catch (e) {
-      console.log(e);
-    }
+    this.appInstance.parentNode.removeChild(this.appInstance);   
   }
 }
 
@@ -87,12 +139,13 @@ function init() {
     height: 300,
     x_position: 50,
     y_position: 150,
-    content_app: "<p> Olá mundo </p>"
+    content_app: `<p>Hello world</p>`
   };
 
   appTest = new appInstance(desktop, data);
 
   appTest.open();
+ 
 }
 
 init();
