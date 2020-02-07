@@ -16,6 +16,39 @@ body {
   height: 100vh;
   background-position: 50% 40%;
   background-size: 100vw;
+  position: fixed;
+}
+
+
+.tool_bar {
+  position: fixed;
+  bottom: 0px;
+  height: 50px;
+  width: 100%;
+  background-color: #515459;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.tool_bar__start_menu {
+  height: 40px;
+  width: 40px;
+  padding: 5px;
+}
+
+.tool_bar__app_icon {
+  height: 40px;
+  width: 40px;
+  padding: 5px;
+}
+
+.fas {
+  color: white;
+  font-size: 30px;
 }
 
 .app {

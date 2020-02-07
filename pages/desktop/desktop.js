@@ -1,3 +1,4 @@
+
 class appInstance {
   constructor(desktop, data) {
     this.id = data.id || Math.floor(Math.random() * 65536);
@@ -133,6 +134,21 @@ class appInstance {
 
 function init() {
   var desktop = document.querySelector("#desktop");
+
+  var tool_bar = document.createElement("div");
+  tool_bar.classList.add("tool_bar");
+
+  var start_menu = document.createElement("div");
+  start_menu.classList.add("tool_bar__start_menu");
+  
+  var start_menu_icon = document.createElement("i");
+  start_menu_icon.classList.add("fas");
+  start_menu_icon.classList.add("fa-bars");  
+
+  start_menu.appendChild(start_menu_icon);
+  tool_bar.appendChild(start_menu);
+  desktop.appendChild(tool_bar);
+
 
   var data = {
     id: "teste",
