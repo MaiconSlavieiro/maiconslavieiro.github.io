@@ -10,6 +10,7 @@ class appInstance {
     this.is_fullscreen = data.is_fullscreen || false;
     this.icon_url = data.icon_url || "";
     this.content_app = data.content_app || "";
+    this.visibility_flag = data.visibility_flag || true;
     this.desktop = desktop || window;
 
     this.appInstance = document.createElement("div");
@@ -19,16 +20,10 @@ class appInstance {
 
   open() {
 
-    if (!this.is_fullscreen) {
-      this.appInstance.style.width = this.width + "px";
-      this.appInstance.style.height = this.height + "px";
-      this.appInstance.style.top = this.x_position + "px";
-      this.appInstance.style.left = this.y_position + "px";
-      this.appInstance.style.zIndex = this.z_position;
+    if (this.is_fullscreen) {
+      this.maximize();
     } else {
-      this.appInstance.style.width = 100 + "vw";
-      this.appInstance.style.height = 100 + "vh";
-      this.appInstance.style.zIndex = 10000;
+      this.restore();
     }
 
     var content = document.createElement("div");
@@ -42,7 +37,7 @@ class appInstance {
 
     var min_button = document.createElement("div");
     min_button.classList.add("app__top_bar__min_button");
-    min_button.addEventListener("click", this.ocult.bind(this), false);
+    min_button.addEventListener("click", this.visibility_switch.bind(this), false);
     top_bar.appendChild(min_button);
 
     var max_button = document.createElement("div");
@@ -95,8 +90,14 @@ class appInstance {
     }
   }
 
-  ocult() {
-    this.appInstance.style.display = "none";  
+  visibility_switch() {
+    if (this.visibility_flag) {
+      this.appInstance.style.display = "none";  
+      this.visibility_flag = false;
+    } else {
+      this.appInstance.style.display = "block";  
+      this.visibility_flag = true;
+    }    
   }
 
   resize() {   
