@@ -37,6 +37,11 @@ class appInstance {
     var top_bar = document.createElement("div");
     top_bar.classList.add("app__top_bar");
 
+    var min_button = document.createElement("div");
+    min_button.classList.add("app__top_bar__min_button");
+    min_button.addEventListener("click", this.minimize, true);
+    top_bar.appendChild(min_button);
+
     var close_button = document.createElement("div");
     close_button.classList.add("app__top_bar__close_button");
     close_button.addEventListener("click", this.close, true);
@@ -46,6 +51,18 @@ class appInstance {
     this.appInstance.appendChild(content);
 
     this.desktop.appendChild(this.appInstance);
+  }
+
+  minimize() {
+    try {
+      try {
+        this.appInstance.style.display = "none";
+      } catch (e) {
+        this.offsetParent.style.display = "none";
+      }
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   close() {
