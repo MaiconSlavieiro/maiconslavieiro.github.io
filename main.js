@@ -1,6 +1,7 @@
 function main() {
   var start_overlay_img = document.querySelector(".overlay_start_img");
   var main_title_bg_img = document.querySelector(".main_title_bg_img");
+  var main_title = document.querySelector(".main_title");
   var logo_svg_paths = document.getElementsByClassName("cls-1");
   document.addEventListener("scroll", isScrolling);
 

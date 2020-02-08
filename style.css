@@ -1,17 +1,20 @@
+* {
+  box-sizing: border-box;
+}
 body {
-  padding: 0;
-  margin: 0;
+  padding: 0px;
+  margin: 0px;
   background-color: black;
 }
 
 .overlay_start_img {
-  background-image: url(./src/imgs/intro_portifolio.png);
+  background-image: url(./src/images/intro_portifolio.png);
   width: 100%;
   height: 130vh;
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: 100%;
-  background-position: 50% 58%;
+  background-position: 50% 60%;
   position: fixed;
 }
 
@@ -40,4 +43,11 @@ body {
   stroke-dasharray: 100;
   stroke-dashoffset: 1000;
   animation: dash 5s linear forwards;
+}
+
+.loanding_screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: red;
 }

@@ -2,6 +2,7 @@ class appInstance {
   constructor(desktop, data) {
     this.id = data.id || Math.floor(Math.random() * 65536);
     this.instanceId = this.id + "-" + Math.floor(Math.random() * 65536);
+    this.app_name = data.app_name || this.instanceId;
     this.width = data.width || 35;
     this.height = data.height || 35;
     this.x_position = data.x_position || 10;
@@ -33,7 +34,13 @@ class appInstance {
 
     var top_bar = document.createElement("div");
     top_bar.classList.add("app__top_bar");
-    top_bar.addEventListener("click", this.restore.bind(this), false);
+
+    var top_bar_app_name = document.createElement("div");
+    top_bar_app_name.classList.add("app__top_bar__app_name");
+    top_bar_app_name.innerHTML = this.app_name;
+    top_bar_app_name.addEventListener("click", this.restore.bind(this), false);
+
+    top_bar.appendChild(top_bar_app_name);
 
     this.moveApp(this.appInstance, top_bar, this);
 
@@ -113,10 +120,11 @@ class appInstance {
       this.z_position = window.last_window_z_position + this.z_position;
       this.appInstance.style.zIndex = this.z_position;
       window.last_window_z_position = this.z_position + 1;
-
       this.appInstance.style.display = "none";
       this.visibility_flag = false;
+      window.appManager.removeFirtPlaneApp(this);
     } else {
+      window.appManager.firtPlaneApp(this);
       this.appInstance.style.display = "block";
       this.visibility_flag = true;
     }
@@ -139,6 +147,7 @@ class appInstance {
     this.appInstance.style.zIndex = this.z_position;
     window.last_window_z_position = this.z_position + 1;
     this.is_fullscreen = false;
+    window.appManager.firtPlaneApp(this);
   }
 
   maximize() {
@@ -148,6 +157,7 @@ class appInstance {
     this.appInstance.style.left = 0;
     this.appInstance.style.top = 0;
     this.is_fullscreen = true;
+    window.appManager.firtPlaneApp(this);
   }
 
   close() {
@@ -160,6 +170,7 @@ class appManager {
     this.running_apps = [];
     this.desktop = desktop;
     this.icons_locality = icons_locality;
+    this.firt_plane_app;
     window.appManager = this;
   }
 
@@ -173,23 +184,58 @@ class appManager {
     this.letMeKnow();
   }
 
-  iconInstance(app) {
+  firtPlaneApp(appInstance) {
+    if (
+      this.firt_plane_app &&
+      this.firt_plane_app.instanceId != appInstance.instanceId
+    ) {
+      var last_icon_instance = this.icons_locality.querySelector(
+        "#" + this.firt_plane_app.instanceId + "i"
+      );
+      last_icon_instance.classList.remove("active");
+    }
+
+    var icon_instance = this.icons_locality.querySelector(
+      "#" + appInstance.instanceId + "i"
+    );
+
+    if (icon_instance) {
+      icon_instance.classList.add("active");
+      this.firt_plane_app = appInstance;
+    }
+  }
+
+  removeFirtPlaneApp(appInstance) {
+    if (
+      this.firt_plane_app &&
+      this.firt_plane_app.instanceId == appInstance.instanceId
+    ) {
+      var last_icon_instance = this.icons_locality.querySelector(
+        "#" + appInstance.instanceId + "i"
+      );
+      last_icon_instance.classList.remove("active");
+      this.firt_plane_app = undefined;
+    }
+  }
+
+  iconInstance(appInstance) {
     var icon_instance = document.createElement("div");
     icon_instance.classList.add("tool_bar__app_icon");
     icon_instance.addEventListener(
       "click",
-      app.visibility_switch.bind(app),
+      appInstance.visibility_switch.bind(appInstance),
       false
     );
-    icon_instance.id = app.instanceId + "i";
+    icon_instance.id = appInstance.instanceId + "i";
 
     var icon_img = document.createElement("img");
     icon_img.classList.add("tool_bar__app_icon__img");
-    icon_img.src = app.icon_url;
+    icon_img.src = appInstance.icon_url;
 
     icon_instance.appendChild(icon_img);
     this.icons_locality.appendChild(icon_instance);
-    app.icon_instance = icon_instance;
+    appInstance.icon_instance = icon_instance;
+    this.firtPlaneApp(appInstance);
   }
 
   remove(instanceId) {
@@ -248,6 +294,7 @@ function init() {
   desktop.appendChild(tool_bar);
 
   var data = {
+    app_name: "Hello World",
     id: "teste",
     width: 35,
     height: 35,
