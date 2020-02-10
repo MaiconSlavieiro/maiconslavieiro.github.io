@@ -17,7 +17,7 @@ class appInstance {
     this.appInstance = document.createElement("div");
     this.appInstance.classList.add("app");
     this.appInstance.id = this.instanceId;
-    
+
     window.last_window_z_position = this.z_position;
   }
 
@@ -274,85 +274,189 @@ class appManager {
 }
 
 class menuApps {
-  constructor(desktop, list_of_apps) {    
+  constructor(desktop, list_of_apps, appManager) {
     this.desktop = desktop;
-    this.menu_apps_element; 
-    this.visibility_flag = false;   
+    this.menu_apps_element;
+    this.visibility_flag = false;
+    this.list_of_apps = list_of_apps;
+    this.appManager = appManager;
   }
 
-  init() {  
+  init() {
     var menu_apps = document.createElement("div");
     menu_apps.classList.add("menu_apps");
     menu_apps.id = "menu_apps";
-
-    // for (let index = 0; index < list_of_apps.length; index++) {
-    //     var data = list_of_apps[index];        
-    // }
-
     this.desktop.appendChild(menu_apps);
+
     this.menu_apps_element = menu_apps;
+
+    this.listingApps();
+  }
+
+  listingApps() {
+    for (let index = 0; index < this.list_of_apps.length; index++) {
+      var data = this.list_of_apps[index];
+
+      var app = document.createElement("div");
+      app.classList.add("menu_apps__app");
+      app.id = data.id + "-launcher";
+
+      function runApp() {
+        this.appManager.runApp(data);
+        this.close();
+      }
+
+      app.addEventListener("click", runApp.bind(this), true);
+
+      var app_icon = document.createElement("img");
+      app_icon.classList.add("menu_apps__app__icon");
+      app_icon.src = data.icon_url || "./assets/icons/generic_app_icon.svg";
+
+      var app_name = document.createElement("div");
+      app_name.classList.add("menu_apps__app__name");
+      app_name.innerText = data.app_name;
+
+      app.appendChild(app_icon);
+      app.appendChild(app_name);
+
+      this.menu_apps_element.appendChild(app);
+    }
   }
 
   onClick() {
-    if(this.visibility_flag) {
+    if (this.visibility_flag) {
       this.close();
-      this.visibility_flag = false;
     } else {
       this.show();
-      this.visibility_flag = true;
     }
   }
 
   show() {
     this.menu_apps_element.classList.add("show");
+    this.visibility_flag = true;
   }
 
   close() {
     this.menu_apps_element.classList.remove("show");
+    this.visibility_flag = false;
   }
 }
 
 function init() {
   var desktop = document.querySelector("#desktop");
 
-  this.menu_apps = new menuApps(desktop, data);
-  menu_apps.init();
+  var data = [
+    {
+      app_name: "Aplicativo teste 1",
+      id: "teste1",
+      width: 35,
+      height: 35,
+      x_position: 10,
+      y_position: 10,
+      content_app: `<p>Hello world</p>`
+    },
+    {
+      app_name: "Aplicativo teste 2",
+      id: "teste2",
+      width: 35,
+      height: 35,
+      x_position: 10,
+      y_position: 10,
+      content_app: `<p>Hello world</p>`
+    },
+    {
+      app_name: "Aplicativo teste 2",
+      id: "teste2",
+      width: 35,
+      height: 35,
+      x_position: 10,
+      y_position: 10,
+      content_app: `<p>Hello world</p>`
+    },
+    {
+      app_name: "Aplicativo teste 2",
+      id: "teste2",
+      width: 35,
+      height: 35,
+      x_position: 10,
+      y_position: 10,
+      content_app: `<p>Hello world</p>`
+    },
+    {
+      app_name: "Aplicativo teste 2",
+      id: "teste2",
+      width: 35,
+      height: 35,
+      x_position: 10,
+      y_position: 10,
+      content_app: `<p>Hello world</p>`
+    },
+    {
+      app_name: "Aplicativo teste 2",
+      id: "teste2",
+      width: 35,
+      height: 35,
+      x_position: 10,
+      y_position: 10,
+      content_app: `<p>Hello world</p>`
+    },
+    {
+      app_name: "Aplicativo teste 2",
+      id: "teste2",
+      width: 35,
+      height: 35,
+      x_position: 10,
+      y_position: 10,
+      content_app: `<p>Hello world</p>`
+    },
+    {
+      app_name: "Aplicativo teste 2",
+      id: "teste2",
+      width: 35,
+      height: 35,
+      x_position: 10,
+      y_position: 10,
+      content_app: `<p>Hello world</p>`
+    },
+    {
+      app_name: "Aplicativo teste 2",
+      id: "teste2",
+      width: 35,
+      height: 35,
+      x_position: 10,
+      y_position: 10,
+      content_app: `<p>Hello world</p>`
+    }
+  ];
+
+  var apps_on_tool_bar = document.createElement("div");
+  apps_on_tool_bar.classList.add("tool_bar__apps_on");
+
+  this.manager = new appManager(desktop, apps_on_tool_bar);
 
   var tool_bar = document.createElement("div");
-  tool_bar.classList.add("tool_bar"); 
+  tool_bar.classList.add("tool_bar");
   tool_bar.id = "tool_bar";
 
+  this.menu_apps = new menuApps(desktop, data, manager);
+  menu_apps.init();
+
   var start_menu = document.createElement("div");
-  start_menu.addEventListener("click", this.menu_apps.onClick.bind(this.menu_apps), false);
+  start_menu.addEventListener(
+    "click",
+    this.menu_apps.onClick.bind(this.menu_apps),
+    false
+  );
   start_menu.classList.add("tool_bar__start_menu");
 
   var start_menu_icon = document.createElement("i");
   start_menu_icon.classList.add("fas");
   start_menu_icon.classList.add("fa-bars");
 
-  var apps_on_tool_bar = document.createElement("div");
-  apps_on_tool_bar.classList.add("tool_bar__apps_on");
-
   start_menu.appendChild(start_menu_icon);
   tool_bar.appendChild(start_menu);
   tool_bar.appendChild(apps_on_tool_bar);
   desktop.appendChild(tool_bar);
-
-  var data = [{
-    app_name: "Hello World",
-    id: "teste",
-    width: 35,
-    height: 35,
-    x_position: 10,
-    y_position: 10,
-    content_app: `<p>Hello world</p>`
-  }];
-
-  this.manager = new appManager(desktop, apps_on_tool_bar);
-  manager.runApp(data[0]);
-  manager.runApp(data[0]);
-
-  console.log(manager.runningApps);
 }
 
 init();

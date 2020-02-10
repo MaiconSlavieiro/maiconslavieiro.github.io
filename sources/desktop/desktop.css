@@ -35,7 +35,7 @@ body {
 }
 
 .menu_apps {
-  background-color: #303133;
+  background-color: rgba(43, 43, 43, 0.5);
   min-height: 35vh;
   height: auto;
   width: 20vw;
@@ -46,6 +46,30 @@ body {
 
 .menu_apps.show {
   display: block;
+}
+
+.menu_apps__app {
+  display: flex;
+  align-items: center;
+  height: 45px;
+  padding: 0 20px;
+}
+
+.menu_apps__app:hover {
+  background-color: rgba(43, 43, 43, 0.5);
+  cursor: pointer;
+}
+
+.menu_apps__app__icon {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+}
+
+.menu_apps__app__name {
+  width: 100%;
+  padding: 5px;
+  color: white;
 }
 
 .tool_bar__start_menu {
