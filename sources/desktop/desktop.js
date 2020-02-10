@@ -12,13 +12,13 @@ class appInstance {
     this.icon_url = data.icon_url || "./assets/icons/generic_app_icon.svg";
     this.content_app = data.content_app || "";
     this.visibility_flag = data.visibility_flag || true;
-
+    this.first_plane;
     this.desktop = desktop;
-    window.last_window_z_position = this.z_position;
-
     this.appInstance = document.createElement("div");
     this.appInstance.classList.add("app");
     this.appInstance.id = this.instanceId;
+    
+    window.last_window_z_position = this.z_position;
   }
 
   open() {
@@ -48,7 +48,7 @@ class appInstance {
     min_button.classList.add("app__top_bar__min_button");
     min_button.addEventListener(
       "click",
-      this.visibility_switch.bind(this),
+      this.visibilitySwitch.bind(this),
       false
     );
     top_bar.appendChild(min_button);
@@ -115,7 +115,7 @@ class appInstance {
     }
   }
 
-  visibility_switch() {
+  visibilitySwitch() {
     if (this.visibility_flag) {
       this.z_position = window.last_window_z_position + this.z_position;
       this.appInstance.style.zIndex = this.z_position;
@@ -223,7 +223,7 @@ class appManager {
     icon_instance.classList.add("tool_bar__app_icon");
     icon_instance.addEventListener(
       "click",
-      appInstance.visibility_switch.bind(appInstance),
+      appInstance.visibilitySwitch.bind(appInstance),
       false
     );
     icon_instance.id = appInstance.instanceId + "i";
@@ -256,6 +256,7 @@ class appManager {
   killAll() {
     for (let index = 0; index < this.running_apps.length; index++) {
       this.running_apps[index].close();
+      this.icons_locality.removeChild(this.running_apps[index].icon_instance);
     }
     this.running_apps = [];
     this.letMeKnow();
@@ -272,11 +273,50 @@ class appManager {
   }
 }
 
+class menuApps {
+  constructor(desktop, list_of_apps) {    
+    this.desktop = desktop;
+    this.menu_apps_element; 
+    this.visibility_flag = false;   
+  }
+
+  init() {  
+    var menu_apps = document.createElement("div");
+    menu_apps.classList.add("menu_apps");
+    menu_apps.id = "menu_apps";
+    this.desktop.appendChild(menu_apps);
+    this.menu_apps_element = menu_apps;
+  }
+
+  onClick() {
+    if(this.visibility_flag) {
+      this.close();
+      this.visibility_flag = false;
+    } else {
+      this.show();
+      this.visibility_flag = true;
+    }
+  }
+
+  show() {
+    this.menu_apps_element.classList.add("show");
+  }
+
+  close() {
+    this.menu_apps_element.classList.remove("show");
+  }
+}
+
 function init() {
   var desktop = document.querySelector("#desktop");
 
+  this.menu_apps = new menuApps(desktop, data);
+  menu_apps.init();
+
   var tool_bar = document.createElement("div");
   tool_bar.classList.add("tool_bar");
+  tool_bar.addEventListener("click", this.menu_apps.onClick.bind(this.menu_apps), false);
+  tool_bar.id = "tool_bar";
 
   var start_menu = document.createElement("div");
   start_menu.classList.add("tool_bar__start_menu");
@@ -293,7 +333,7 @@ function init() {
   tool_bar.appendChild(apps_on_tool_bar);
   desktop.appendChild(tool_bar);
 
-  var data = {
+  var data = [{
     app_name: "Hello World",
     id: "teste",
     width: 35,
@@ -301,11 +341,11 @@ function init() {
     x_position: 10,
     y_position: 10,
     content_app: `<p>Hello world</p>`
-  };
+  }];
 
   this.manager = new appManager(desktop, apps_on_tool_bar);
-  manager.runApp(data);
-  manager.runApp(data);
+  manager.runApp(data[0]);
+  manager.runApp(data[0]);
 
   console.log(manager.runningApps);
 }

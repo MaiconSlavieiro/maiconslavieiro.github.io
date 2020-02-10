@@ -34,6 +34,20 @@ body {
   padding-left: 5px;
 }
 
+.menu_apps {
+  background-color: #303133;
+  min-height: 35vh;
+  height: auto;
+  width: 20vw;
+  position: fixed;
+  bottom: 50px;
+  display: none;
+}
+
+.menu_apps.show {
+  display: block;
+}
+
 .tool_bar__start_menu {
   height: 50px;
   width: 50px;
