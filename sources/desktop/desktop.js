@@ -284,6 +284,11 @@ class menuApps {
     var menu_apps = document.createElement("div");
     menu_apps.classList.add("menu_apps");
     menu_apps.id = "menu_apps";
+
+    // for (let index = 0; index < list_of_apps.length; index++) {
+    //     var data = list_of_apps[index];        
+    // }
+
     this.desktop.appendChild(menu_apps);
     this.menu_apps_element = menu_apps;
   }
@@ -314,11 +319,11 @@ function init() {
   menu_apps.init();
 
   var tool_bar = document.createElement("div");
-  tool_bar.classList.add("tool_bar");
-  tool_bar.addEventListener("click", this.menu_apps.onClick.bind(this.menu_apps), false);
+  tool_bar.classList.add("tool_bar"); 
   tool_bar.id = "tool_bar";
 
   var start_menu = document.createElement("div");
+  start_menu.addEventListener("click", this.menu_apps.onClick.bind(this.menu_apps), false);
   start_menu.classList.add("tool_bar__start_menu");
 
   var start_menu_icon = document.createElement("i");
