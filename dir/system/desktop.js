@@ -30,7 +30,7 @@ class appInstance {
 
     var content = document.createElement("div");
     content.classList.add("app__content");
-    content.innerHTML = this.content_app;
+    content.innerHTML = `<iframe src="${this.content_app}"/>`;
 
     var top_bar = document.createElement("div");
     top_bar.classList.add("app__top_bar");
@@ -248,6 +248,11 @@ class appManager {
         this.icons_locality.removeChild(this.running_apps[index].icon_instance);
       }
     }
+
+    if (newArry.length == 0) {
+      this.firt_plane_app = undefined;
+    }
+
     this.running_apps = newArry;
 
     this.letMeKnow();
@@ -295,7 +300,7 @@ class menuApps {
 
   listingApps() {
     for (let index = 0; index < this.list_of_apps.length; index++) {
-      var data = this.list_of_apps[index];
+      let data = this.list_of_apps[index];
 
       var app = document.createElement("div");
       app.classList.add("menu_apps__app");
@@ -306,7 +311,14 @@ class menuApps {
         this.close();
       }
 
-      app.addEventListener("click", runApp.bind(this), true);
+      app.addEventListener(
+        "click",
+        function() {
+          this.appManager.runApp(data);
+          this.close();
+        }.bind(this),
+        true
+      );
 
       var app_icon = document.createElement("img");
       app_icon.classList.add("menu_apps__app__icon");
@@ -347,13 +359,13 @@ function init() {
 
   var data = [
     {
-      app_name: "Aplicativo teste 1",
-      id: "teste1",
+      app_name: "Code",
+      id: "code",
       width: 35,
       height: 35,
       x_position: 10,
       y_position: 10,
-      content_app: `<p>Hello world</p>`
+      content_app: "../apps/code/code.html"
     },
     {
       app_name: "Aplicativo teste 2",
@@ -362,70 +374,16 @@ function init() {
       height: 35,
       x_position: 10,
       y_position: 10,
-      content_app: `<p>Hello world</p>`
+      content_app: "<p>Hello world</p>"
     },
     {
-      app_name: "Aplicativo teste 2",
-      id: "teste2",
+      app_name: "Aplicativo teste 3",
+      id: "teste3",
       width: 35,
       height: 35,
       x_position: 10,
       y_position: 10,
-      content_app: `<p>Hello world</p>`
-    },
-    {
-      app_name: "Aplicativo teste 2",
-      id: "teste2",
-      width: 35,
-      height: 35,
-      x_position: 10,
-      y_position: 10,
-      content_app: `<p>Hello world</p>`
-    },
-    {
-      app_name: "Aplicativo teste 2",
-      id: "teste2",
-      width: 35,
-      height: 35,
-      x_position: 10,
-      y_position: 10,
-      content_app: `<p>Hello world</p>`
-    },
-    {
-      app_name: "Aplicativo teste 2",
-      id: "teste2",
-      width: 35,
-      height: 35,
-      x_position: 10,
-      y_position: 10,
-      content_app: `<p>Hello world</p>`
-    },
-    {
-      app_name: "Aplicativo teste 2",
-      id: "teste2",
-      width: 35,
-      height: 35,
-      x_position: 10,
-      y_position: 10,
-      content_app: `<p>Hello world</p>`
-    },
-    {
-      app_name: "Aplicativo teste 2",
-      id: "teste2",
-      width: 35,
-      height: 35,
-      x_position: 10,
-      y_position: 10,
-      content_app: `<p>Hello world</p>`
-    },
-    {
-      app_name: "Aplicativo teste 2",
-      id: "teste2",
-      width: 35,
-      height: 35,
-      x_position: 10,
-      y_position: 10,
-      content_app: `<p>Hello world</p>`
+      content_app: "<p>Hello world</p>"
     }
   ];
 
@@ -452,6 +410,12 @@ function init() {
   var start_menu_icon = document.createElement("i");
   start_menu_icon.classList.add("fas");
   start_menu_icon.classList.add("fa-bars");
+
+  desktop.addEventListener(
+    "click",
+    this.menu_apps.close.bind(this.menu_apps),
+    true
+  );
 
   start_menu.appendChild(start_menu_icon);
   tool_bar.appendChild(start_menu);
