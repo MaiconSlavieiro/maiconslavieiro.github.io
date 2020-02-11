@@ -368,22 +368,13 @@ function init() {
       content_app: "../apps/code/code.html"
     },
     {
-      app_name: "Aplicativo teste 2",
-      id: "teste2",
-      width: 35,
-      height: 35,
+      app_name: "UnkayOS",
+      id: "UnkayOS",
+      width: 60,
+      height: 60,
       x_position: 10,
       y_position: 10,
-      content_app: "<p>Hello world</p>"
-    },
-    {
-      app_name: "Aplicativo teste 3",
-      id: "teste3",
-      width: 35,
-      height: 35,
-      x_position: 10,
-      y_position: 10,
-      content_app: "<p>Hello world</p>"
+      content_app: "../apps/unkayOs/desktop.html"
     }
   ];
 
