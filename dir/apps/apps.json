@@ -4,8 +4,8 @@
     "id": "code",
     "width": 60,
     "height": 60,
-    "x_position": 10,
-    "y_position": 10,
-    "content_app": "<p>hello world</pd>"
+    "x_position": 150,
+    "y_position": 150,
+    "dirApp": ".././apps/code/code.html"
   }
 ]

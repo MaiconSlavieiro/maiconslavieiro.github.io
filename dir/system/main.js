@@ -10,14 +10,13 @@ class appInstance {
     this.z_position = data.z_position || 0;
     this.is_fullscreen = data.is_fullscreen || false;
     this.icon_url = data.icon_url || "./assets/icons/generic_app_icon.svg";
-    this.content_app = data.content_app || "";
+    this.dirApp = data.dirApp || "";
     this.visibility_flag = data.visibility_flag || true;
     this.first_plane;
     this.desktop = desktop;
     this.appInstance = document.createElement("div");
     this.appInstance.classList.add("app");
     this.appInstance.id = this.instanceId;
-
     window.last_window_z_position = this.z_position;
   }
 
@@ -28,52 +27,65 @@ class appInstance {
       this.restore();
     }
 
-    var content = document.createElement("div");
-    content.classList.add("app__content");
-    content.innerHTML = this.content_app;
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", this.dirApp, true);
+    xhr.responseType = "document";
+    xhr.onload = function(e) {
+      var innerContent = e.target.response.documentElement;
 
-    var top_bar = document.createElement("div");
-    top_bar.classList.add("app__top_bar");
+      var content = document.createElement("div");
+      content.classList.add("app__content");
 
-    var top_bar_app_name = document.createElement("div");
-    top_bar_app_name.classList.add("app__top_bar__app_name");
-    top_bar_app_name.innerHTML = this.app_name;
-    top_bar_app_name.addEventListener("click", this.restore.bind(this), false);
+      content.appendChild(innerContent);
 
-    top_bar.appendChild(top_bar_app_name);
+      var top_bar = document.createElement("div");
+      top_bar.classList.add("app__top_bar");
 
-    this.moveApp(this.appInstance, top_bar, this);
+      var top_bar_app_name = document.createElement("div");
+      top_bar_app_name.classList.add("app__top_bar__app_name");
+      top_bar_app_name.innerHTML = this.app_name;
+      top_bar_app_name.addEventListener(
+        "click",
+        this.restore.bind(this),
+        false
+      );
 
-    var min_button = document.createElement("div");
-    min_button.classList.add("app__top_bar__min_button");
-    min_button.addEventListener(
-      "click",
-      this.visibilitySwitch.bind(this),
-      false
-    );
-    top_bar.appendChild(min_button);
+      top_bar.appendChild(top_bar_app_name);
 
-    var max_button = document.createElement("div");
-    max_button.classList.add("app__top_bar__max_button");
-    max_button.addEventListener("click", this.resize.bind(this), true);
-    top_bar.appendChild(max_button);
+      this.moveApp(this.appInstance, top_bar, this);
 
-    var close_button = document.createElement("div");
-    var id_of_instance = this.instanceId;
-    close_button.classList.add("app__top_bar__close_button");
-    close_button.addEventListener(
-      "click",
-      function() {
-        window.appManager.remove(id_of_instance);
-      },
-      false
-    );
-    top_bar.appendChild(close_button);
+      var min_button = document.createElement("div");
+      min_button.classList.add("app__top_bar__min_button");
+      min_button.addEventListener(
+        "click",
+        this.visibilitySwitch.bind(this),
+        false
+      );
+      top_bar.appendChild(min_button);
 
-    this.appInstance.appendChild(top_bar);
-    this.appInstance.appendChild(content);
+      var max_button = document.createElement("div");
+      max_button.classList.add("app__top_bar__max_button");
+      max_button.addEventListener("click", this.resize.bind(this), true);
+      top_bar.appendChild(max_button);
 
-    this.desktop.appendChild(this.appInstance);
+      var close_button = document.createElement("div");
+      var id_of_instance = this.instanceId;
+      close_button.classList.add("app__top_bar__close_button");
+      close_button.addEventListener(
+        "click",
+        function() {
+          window.appManager.remove(id_of_instance);
+        },
+        false
+      );
+      top_bar.appendChild(close_button);
+
+      this.appInstance.appendChild(top_bar);
+      this.appInstance.appendChild(content);
+
+      this.desktop.appendChild(this.appInstance);
+    }.bind(this);
+    xhr.send();
   }
 
   moveApp(elmnt, header, context) {
@@ -373,7 +385,7 @@ function init() {
 
   loadJSON(function(response) {
     apps_list = JSON.parse(response);
-    appsReady();
+    loadsReady();
   }, "../apps/apps.json");
 
   var desktop = document.querySelector("#desktop");
@@ -394,7 +406,7 @@ function init() {
   var start_menu = document.createElement("div");
   start_menu.classList.add("tool_bar__start_menu");
 
-  function appsReady() {
+  function loadsReady() {
     var manager = new appManager(desktop, apps_on_tool_bar);
     var menu_apps = new menuApps(desktop, apps_list, manager);
 

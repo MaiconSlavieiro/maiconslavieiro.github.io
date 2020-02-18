@@ -4,18 +4,18 @@
   box-sizing: border-box;
 }
 
-#code {
+.code {
   display: flex;
   width: 100%;
   height: 100%;
 }
 
-#explore {
+.explore {
   width: 20%;
   background-color: rgba(43, 43, 43, 0.5);
 }
 
-#workarea {
+.workarea {
   width: 80%;
   background-color: rgba(95, 95, 95, 0.5);
 }
