@@ -11,6 +11,7 @@ class appInstance {
     this.is_fullscreen = data.is_fullscreen || false;
     this.icon_url = data.icon_url || "./assets/icons/generic_app_icon.svg";
     this.dirApp = data.dirApp || "";
+    this.jsFile = data.jsFile || "";
     this.visibility_flag = data.visibility_flag || true;
     this.first_plane;
     this.desktop = desktop;
@@ -84,6 +85,12 @@ class appInstance {
       this.appInstance.appendChild(content);
 
       this.desktop.appendChild(this.appInstance);
+
+      import(this.jsFile).then(module => {
+        try {
+          module.init(this);
+        } catch (e) {}
+      });
     }.bind(this);
     xhr.send();
   }
@@ -386,7 +393,7 @@ function init() {
   loadJSON(function(response) {
     apps_list = JSON.parse(response);
     loadsReady();
-  }, "../apps/apps.json");
+  }, "./apps/apps.json");
 
   var desktop = document.querySelector("#desktop");
   desktop.style.backgroundImage =

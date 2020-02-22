@@ -6,6 +6,7 @@
     "height": 60,
     "x_position": 150,
     "y_position": 150,
-    "dirApp": ".././apps/code/code.html"
+    "dirApp": "./apps/code/code.html",
+    "jsFile": "./apps/code/code.js"
   }
 ]
