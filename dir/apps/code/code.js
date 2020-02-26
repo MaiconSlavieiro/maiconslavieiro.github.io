@@ -4,9 +4,11 @@ export function init(app) {
     var workarea = element.querySelector(".code__workarea");
     var explore = element.querySelector(".code__explore");
 
-    function loadJSON(callback, path) {
+    function loadFile(callback, path, typy) {
       var xobj = new XMLHttpRequest();
-      xobj.overrideMimeType("application/json");
+      if(typy) {
+        xobj.overrideMimeType(typy);
+      }     
       xobj.open("GET", path, true);
       xobj.onreadystatechange = function() {
         if (xobj.readyState == 4 && xobj.status == "200") {
@@ -16,9 +18,10 @@ export function init(app) {
       xobj.send(null);
     }
 
-    loadJSON(
+    loadFile(
       renderFileList,
-      "https://api.github.com/repos/MaiconSlavieiro/portfolio/contents"
+      "https://api.github.com/repos/MaiconSlavieiro/portfolio/contents",
+      "application/json"
     );
 
     function renderFileList(response) {
@@ -33,18 +36,18 @@ export function init(app) {
       var hasParent = parentElement ? true : false;
       content.forEach(element => {
         if (element.type == "dir") {
-          var elm = createElement(element, hasParent, true);
+          var elm = createExploreElement(element, hasParent, true);
           elmParent.appendChild(elm);
-          loadJSON(function(response) {
+          loadFile(function(response) {
             processContent(response, elm);
-          }, element.url);
+          }, element.url, "application/json");
         } else {
-          elmParent.appendChild(createElement(element, hasParent, false));
+          elmParent.appendChild(createExploreElement(element, hasParent, false));
         }
       });
     }
 
-    function createElement(item, hasParent, isFolder) {
+    function createExploreElement(item, hasParent, isFolder) {
       var elm_class = isFolder
         ? "code__explore__folder"
         : "code__explore__file";
@@ -69,6 +72,39 @@ export function init(app) {
           },
           false
         );
+      } else {
+        var fileName = item.download_url;
+        var extension = fileName.split('.').pop();         
+
+        span_name_file.addEventListener(
+          "click",
+          function() {
+            loadFile(
+              createViewContent,
+              item.download_url
+            );
+
+            function createViewContent(data) {
+              workarea.innerHTML = "";  
+
+              if(extension == 'js' || extension == "html" || extension == "css" || extension == "less" || extension == "json") {
+                workarea.innerText = data;    
+              } else if(extension == 'svg') {
+                workarea.innerHTML = data;                
+              } else if(extension == 'png' || extension == 'jpeg' || extension == 'jpg') {
+                var img = document.createElement("img");
+                img.src = item.download_url;
+                workarea.appendChild(img);
+              }else {
+                workarea.innerText = "Não é possivel visualizar esse arquivo";
+              }       
+                       
+            }
+          },              
+          false
+        );
+
+       
       }
 
       if (!hasParent) {
