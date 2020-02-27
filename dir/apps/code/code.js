@@ -6,11 +6,11 @@ export function init(app) {
 
     function loadFile(callback, path, typy) {
       var xobj = new XMLHttpRequest();
-      if(typy) {
+      if (typy) {
         xobj.overrideMimeType(typy);
-      }     
+      }
       xobj.open("GET", path, true);
-      xobj.onreadystatechange = function() {
+      xobj.onreadystatechange = function () {
         if (xobj.readyState == 4 && xobj.status == "200") {
           callback(xobj.responseText);
         }
@@ -38,7 +38,7 @@ export function init(app) {
         if (element.type == "dir") {
           var elm = createExploreElement(element, hasParent, true);
           elmParent.appendChild(elm);
-          loadFile(function(response) {
+          loadFile(function (response) {
             processContent(response, elm);
           }, element.url, "application/json");
         } else {
@@ -61,7 +61,7 @@ export function init(app) {
       if (isFolder) {
         span_name_file.addEventListener(
           "click",
-          function() {
+          function () {
             var folderContent = elm.children;
             for (let index = 0; index < folderContent.length; index++) {
               const element = folderContent[index];
@@ -74,37 +74,48 @@ export function init(app) {
         );
       } else {
         var fileName = item.download_url;
-        var extension = fileName.split('.').pop();         
-
+        var extension = fileName.split('.').pop();
         span_name_file.addEventListener(
           "click",
-          function() {
+          function () {
             loadFile(
               createViewContent,
               item.download_url
             );
 
             function createViewContent(data) {
-              workarea.innerHTML = "";  
+              workarea.innerHTML = "";
 
-              if(extension == 'js' || extension == "html" || extension == "css" || extension == "less" || extension == "json") {
-                workarea.innerText = data;    
-              } else if(extension == 'svg') {
-                workarea.innerHTML = data;                
-              } else if(extension == 'png' || extension == 'jpeg' || extension == 'jpg') {
+              if (extension == 'js' || extension == "html" || extension == "css" || extension == "less" || extension == "json") {
+                var content = document.createElement("div");
+                content.classList.add("code__workarea__content");
+                content.innerText = data;
+                workarea.appendChild(content);
+              } else if (extension == 'svg') {
+                var content = document.createElement("div");
+                content.classList.add("code__workarea__content");
+                content.innerHTML = data;
+                workarea.appendChild(content);
+              } else if (extension == 'png' || extension == 'jpeg' || extension == 'jpg') {
                 var img = document.createElement("img");
                 img.src = item.download_url;
+                img.classList.add("code__workarea__img");
                 workarea.appendChild(img);
-              }else {
-                workarea.innerText = "Não é possivel visualizar esse arquivo";
-              }       
-                       
+              } else {
+                var downlaodButton = document.createElement("a");
+                downlaodButton.classList.add("button", "large", "light");
+                downlaodButton.href = item.download_url;
+                //downlaodButton.target = "_blank";
+                downlaodButton.innerText = "Download"
+                workarea.appendChild(downlaodButton);
+              }
+
             }
-          },              
+          },
           false
         );
 
-       
+
       }
 
       if (!hasParent) {
@@ -113,5 +124,5 @@ export function init(app) {
 
       return elm;
     }
-  } catch (e) {}
+  } catch (e) { }
 }
