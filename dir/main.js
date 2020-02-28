@@ -31,7 +31,7 @@ class appInstance {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", this.dirApp, true);
     xhr.responseType = "document";
-    xhr.onload = function(e) {
+    xhr.onload = function (e) {
       var innerContent = e.target.response.documentElement;
 
       var content = document.createElement("div");
@@ -74,7 +74,7 @@ class appInstance {
       close_button.classList.add("app__top_bar__close_button");
       close_button.addEventListener(
         "click",
-        function() {
+        function () {
           window.appManager.remove(id_of_instance);
         },
         false
@@ -89,10 +89,12 @@ class appInstance {
       import(this.jsFile).then(module => {
         try {
           module.init(this);
-        } catch (e) {}
+        } catch (e) { }
       });
     }.bind(this);
     xhr.send();
+
+    window.appManager.firtPlaneApp(this);
   }
 
   moveApp(elmnt, header, context) {
@@ -138,14 +140,9 @@ class appInstance {
 
   visibilitySwitch() {
     if (this.visibility_flag) {
-      this.z_position = window.last_window_z_position + this.z_position;
-      this.appInstance.style.zIndex = this.z_position;
-      window.last_window_z_position = this.z_position + 1;
       this.appInstance.style.display = "none";
       this.visibility_flag = false;
-      window.appManager.removeFirtPlaneApp(this);
     } else {
-      window.appManager.firtPlaneApp(this);
       this.appInstance.style.display = "block";
       this.visibility_flag = true;
     }
@@ -224,6 +221,10 @@ class appManager {
       icon_instance.classList.add("active");
       this.firt_plane_app = appInstance;
     }
+
+    appInstance.z_position = window.last_window_z_position + appInstance.z_position;
+    appInstance.appInstance.style.zIndex = appInstance.z_position;
+    window.last_window_z_position = appInstance.z_position + 1;
   }
 
   removeFirtPlaneApp(appInstance) {
@@ -243,10 +244,20 @@ class appManager {
     var icon_instance = document.createElement("div");
     icon_instance.classList.add("tool_bar__apps_on__app_icon");
     icon_instance.addEventListener(
-      "click",
-      appInstance.visibilitySwitch.bind(appInstance),
+      "click", actionClick,
       false
     );
+
+    function actionClick() {
+
+      if (window.appManager.firt_plane_app.instanceId == appInstance.instanceId) {
+        appInstance.visibilitySwitch();
+      } else {
+        window.appManager.firtPlaneApp(appInstance);
+      }
+
+    };
+
     icon_instance.id = appInstance.instanceId + "i";
 
     var icon_img = document.createElement("img");
@@ -334,7 +345,7 @@ class menuApps {
 
       app.addEventListener(
         "click",
-        function() {
+        function () {
           this.appManager.runApp(data);
           this.close();
         }.bind(this),
@@ -379,7 +390,7 @@ function loadJSON(callback, path) {
   var xobj = new XMLHttpRequest();
   xobj.overrideMimeType("application/json");
   xobj.open("GET", path, true);
-  xobj.onreadystatechange = function() {
+  xobj.onreadystatechange = function () {
     if (xobj.readyState == 4 && xobj.status == "200") {
       callback(xobj.responseText);
     }
@@ -390,7 +401,7 @@ function loadJSON(callback, path) {
 function init() {
   var apps_list;
 
-  loadJSON(function(response) {
+  loadJSON(function (response) {
     apps_list = JSON.parse(response);
     loadsReady();
   }, "./apps/apps.json");
