@@ -8,8 +8,21 @@ html,body {
   width: 100%;
   height: 100%;
   position: relative;
-  background-color: aqua;
+  background-color: rgba(43, 43, 43, 1);  
 }
+
+#debbug_info {
+  border: red solid 1px;
+  width: max-content;
+  height: max-content;
+  min-width: 100px;
+  min-height: 50px;
+  position: fixed;
+  z-index: 1000;
+  color: red;
+  padding: 10px;
+}
+
 .pc_img {
   background-image: url(./src/images/intro_portifolio.png);
   background-position: 50% 50%;
@@ -18,12 +31,26 @@ html,body {
   height: 100%;
   position: fixed;
   z-index: 2;
+  transition: all 0s ease 0s;
+  
+}
 
-  transition: all 1s ease 0s;
+.bg_img {
+  background-image: url(./src/images/taneli-lahtinen-0cSOFraG4uc-unsplash.jpg);
+  background-position: 50% 50%; 
+  background-size: cover;  
+  height: 100%; 
+  width: 100%; 
+  position: absolute;
+  z-index: 0;  
+  opacity: 100%;
+  transition: all 2s ease 0s;
 
-  &.zoomin {    
-    background-size: 250%;  
-  }
+  &.loading {
+  filter: blur(8px);
+  -webkit-filter: blur(8px); 
+  opacity: 50%;
+  }  
 }
 
 .screen_content { 
@@ -33,20 +60,28 @@ html,body {
   z-index: 1;  
   display: flex;
   justify-content: center;
-  align-items: center;
-
-  img {
+  align-items: center; 
+  transition: all 1s ease 0s;
+  
+  #maicon_slavieiro {
     width: 30%;
-    height: auto;
+    height: auto; 
+    transition: all 2s ease 0s; 
+    position: absolute;
+    path {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;      
+      opacity: 0;
+      transition: all 1s ease 0s;
+    }     
+  }
+
+  #loading {    
+    position: absolute;
+    opacity: 0;
+    transition: all 1s ease 0s;    
   }
 }
 
-.bg_img {
-  background-image: url(./src/images/taneli-lahtinen-0cSOFraG4uc-unsplash.jpg);
-  background-position: 50% 50%;
-  background-size: 100%;  
-  height: 100%; 
-  width: 100%; 
-  position: absolute;
-  z-index: 0;  
-}
+
+
