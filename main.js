@@ -1,5 +1,7 @@
 function main() {
   var pc_img = document.querySelector(".pc_img");
+  var pc_img_outline = document.querySelector(".pc_img_outline");
+  var network_effect = document.querySelector(".network_effect");
   var bg_img = document.querySelector(".bg_img");
   var ms_logo = document.querySelector("#maicon_slavieiro");
   var paths_ms_logo = ms_logo.querySelectorAll("path");
@@ -16,7 +18,16 @@ function main() {
 
     var currentScrollPosition = window.pageYOffset;
     var possitionStatus = (currentScrollPosition * 100) / maxSize;
+
     pc_img.style.backgroundSize = possitionStatus > 40 ? (possitionStatus * 2.5) + "%" : "100%";
+    pc_img.style.filter = "blur(" + (possitionStatus / 40) + "px)";
+
+    pc_img_outline.style.backgroundSize = possitionStatus > 40 ? (possitionStatus * 2.5) + "%" : "100%";
+    pc_img_outline.style.opacity = possitionStatus + '%';
+
+    network_effect.style.backgroundSize = possitionStatus > 40 ? (possitionStatus * 2.5) + "%" : "100%";
+    //network_effect.style.filter = "blur(" + (possitionStatus / 45) + "px)";
+    network_effect.style.opacity = possitionStatus + '%';
 
     console.log(possitionStatus);
 
@@ -26,7 +37,10 @@ function main() {
       path.style.opacity = possitionStatus + '%';
     });
 
-    if (possitionStatus > 95) {
+
+
+
+    if (possitionStatus > 98) {
       setTimeout(function () {
         bg_img.classList.add("loading");
         screen_content.style.zIndex = 1000;
@@ -35,7 +49,7 @@ function main() {
           loading.style.opacity = "100%";
         }, 1000)
         setTimeout(function () {
-          window.location.assign("./dir/desktop.html");
+          window.location.href = "./dir/desktop.html";
         }, 4000)
       }, 1500);
 

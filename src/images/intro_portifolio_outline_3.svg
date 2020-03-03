@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1920 4039" style="enable-background:new 0 0 1920 4039;" xml:space="preserve">
+<style type="text/css">
+	.st0{display:none;}
+	.st1{display:inline;fill:#8E8E8E;}
+	.st2{
+		display:inline;fill:none;stroke:#FFFFFF;stroke-miterlimit:10;
+		stroke-dasharray: 1000;
+  	animation: dash 1s alternate-reverse infinite ease-in-out;
+		}
+	.st3{fill:#FFFFFF;}
+	.st4{
+		fill:none;stroke:#FFFFFF;stroke-miterlimit:10;
+		stroke-dasharray: 1000;
+  	animation: dash 20s alternate-reverse infinite ease-in-out;
+		}
+	@keyframes dash {
+  	to {
+    	stroke-dashoffset: 5000;
+  	}
+	}
+</style>
+<g id="Camada_4" class="st0">
+	<rect class="st1" width="1920" height="4039"/>
+</g>
+<g id="Camada_1" class="st0">
+	<image style="display:inline;overflow:visible;" width="1920" height="4039" xlink:href="intro_portifolio.png" >
+	</image>
+</g>
+<g id="Camada_2" class="st0">
+	<path class="st2" d="M541.4,2262.3c0,0-3.1-1.3-3.2-25.6c-0.1-24.2,0-514.6,0-514.6s0-24.9,24.4-25.3l788-0.4h7
+		c0,0,25.8,1.5,25.8,24.4c0,23-3,515.6-3,515.6l-0.3,21.2c0,0,0,8.3-3,9.9"/>
+	<path class="st2" d="M1344.5,2333.3l-41.3-52.7c0,0-1-1.5-6.8-1.6c-5.8-0.1-494.1-3.4-494.1-3.4l-185.8-1c0,0-3.4,0.5-5.4,2.5
+		c-1.9,2-40.7,52-40.7,52"/>
+	<polyline class="st2" points="556.4,1726.1 556.4,2234.9 1362.7,2236.9 	"/>
+</g>
+<g id="Camada_3">
+	<circle class="st3" cx="589.3" cy="1612" r="4.9"/>
+	<circle class="st3" cx="1224.2" cy="1841.3" r="4"/>
+	<circle class="st3" cx="1538.7" cy="1683.3" r="4.9"/>
+	<polyline class="st4" points="747.7,1695.1 886.5,1551.3 1224.2,1841.3 	"/>
+	<circle class="st3" cx="886.4" cy="1551.3" r="2.5"/>
+	<line class="st4" x1="386.7" y1="1996" x2="1068" y2="1707"/>
+	<line class="st4" x1="535.7" y1="1937.8" x2="0" y2="1474.7"/>
+	<circle class="st3" cx="348.8" cy="1663" r="5"/>
+	<line class="st4" x1="348.8" y1="1663" x2="535.7" y2="1735.6"/>
+	<polyline class="st4" points="624.9,1696.3 657.8,1664.4 1189.8,1719.6 1328,1618.9 1460.4,1795.1 	"/>
+	<circle class="st3" cx="657.6" cy="1664.6" r="2.5"/>
+	<circle class="st3" cx="766.5" cy="1675.9" r="4.9"/>
+	<circle class="st3" cx="1190.1" cy="1719.6" r="2.5"/>
+	<circle class="st3" cx="1068" cy="1707" r="4.9"/>
+	<circle class="st3" cx="386.6" cy="1996.7" r="2.5"/>
+	<circle class="st3" cx="1328.2" cy="1618.9" r="2.5"/>
+	<circle class="st3" cx="1420.9" cy="1741.9" r="4.9"/>
+	<circle class="st3" cx="1460.1" cy="1793.7" r="2.5"/>
+	<path class="st4" d="M766.5,1675.6c0,0,561.5-56.7,561.7-56.7l591.8,178.7l-189.2,80.4"/>
+	<circle class="st3" cx="479.1" cy="1715.2" r="4.9"/>
+	<circle class="st3" cx="624.9" cy="2208.4" r="4.9"/>
+	<polyline class="st4" points="589.3,1612 624.9,2208.4 348.8,1663 	"/>
+	<polyline class="st4" points="0,2274.7 674.7,2099.1 1493.3,2217.3 1381.8,2102.2 	"/>
+	<path class="st4" d="M1558.2,2195c-22.2,8-43.2,15-64.8,22.4"/>
+	<path class="st4" d="M1920,2222.7c-50-12.7-101-24.7-151.3-37.7"/>
+	<polyline class="st4" points="1384.3,1999.3 1434.7,2004 657.6,1664.6 	"/>
+	<line class="st4" x1="228" y1="1891.9" x2="536.2" y2="1920.5"/>
+	<line class="st4" x1="0" y1="1870.7" x2="117.8" y2="1881.6"/>
+	<polyline class="st4" points="0,1958.2 589.3,1612 1224,1841.3 1538.7,1682.7 1460.4,1795.1 1189.8,1719.6 1224,1841.3 	"/>
+	<polyline class="st4" points="343.3,2126.5 389.1,2213.3 478.6,1715.2 	"/>
+	<line class="st4" x1="224.3" y1="1900.6" x2="278.1" y2="2002.7"/>
+	<line class="st4" x1="0" y1="1474.7" x2="163.4" y2="1784.8"/>
+	<path class="st4" d="M386.6,1996.7"/>
+	<path class="st4" d="M1920,2798.4c-6.7-4-75.7-367.7-75.7-367.7l-593.7-313.8l184-112.9l188.9-80.3"/>
+	<polyline class="st4" points="1250.7,2116.9 624.9,2208.4 386.6,1996.7 389.1,2213.3 	"/>
+	<line class="st4" x1="1844.3" y1="2430.7" x2="1920" y2="2384.4"/>
+	<line class="st4" x1="1382.9" y1="1816.7" x2="1920" y2="1656.8"/>
+	<line class="st4" x1="886.4" y1="1551.3" x2="0" y2="1735.6"/>
+	<line class="st4" x1="0" y1="2520.5" x2="1920" y2="2647.6"/>
+	<line class="st4" x1="389.1" y1="2213.3" x2="0" y2="2471"/>
+	<circle class="st3" cx="1250.7" cy="2116.8" r="2.5"/>
+	<circle class="st3" cx="1844.3" cy="2430.7" r="2.5"/>
+	<circle class="st3" cx="1493.6" cy="2217.3" r="2.5"/>
+	<circle class="st3" cx="1434.7" cy="2004" r="4.9"/>
+	<circle class="st3" cx="1685.1" cy="1726.3" r="4.9"/>
+	<circle class="st3" cx="451.4" cy="1865.4" r="4.9"/>
+	<circle class="st3" cx="123.9" cy="1710" r="2.5"/>
+	<circle class="st3" cx="674.7" cy="2099.1" r="2.5"/>
+	<circle class="st3" cx="389.1" cy="2213.7" r="2.5"/>
+</g>
+</svg>
