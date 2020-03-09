@@ -9,6 +9,9 @@ function main() {
   var loading = document.querySelector("#loading");
 
   document.addEventListener("scroll", isScrolling);
+  document.addEventListener("mousemove", isMouseMoving);
+
+  function isMouseMoving(e) { }
 
   var maxSize = window.innerHeight * 2;
   bg_img.style.height = maxSize + window.innerHeight + "px";
@@ -26,7 +29,7 @@ function main() {
     pc_img_outline.style.opacity = possitionStatus + '%';
 
     network_effect.style.backgroundSize = possitionStatus > 40 ? (possitionStatus * 2.5) + "%" : "100%";
-    //network_effect.style.filter = "blur(" + (possitionStatus / 45) + "px)";
+
     network_effect.style.opacity = possitionStatus + '%';
 
     console.log(possitionStatus);

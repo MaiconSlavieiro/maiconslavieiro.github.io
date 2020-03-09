@@ -57,12 +57,16 @@ export function init(app) {
       elm.classList.add("code__explore__item");
       var span_name_file = document.createElement("div");
       span_name_file.innerText = item.name;
+
       elm.appendChild(span_name_file);
       if (isFolder) {
+        span_name_file.classList.add("code__explore__item__icon", "folder");
         span_name_file.addEventListener(
           "click",
           function () {
             var folderContent = elm.children;
+            this.classList.toggle("folder");
+            this.classList.toggle("open_folder");
             for (let index = 0; index < folderContent.length; index++) {
               const element = folderContent[index];
               if (element != this) {
@@ -75,6 +79,7 @@ export function init(app) {
       } else {
         var fileName = item.download_url;
         var extension = fileName.split('.').pop();
+        span_name_file.classList.add("code__explore__item__icon", extension);
         span_name_file.addEventListener(
           "click",
           function () {
@@ -83,13 +88,24 @@ export function init(app) {
               item.download_url
             );
 
+            var last_selected = explore.querySelector(".selected");
+            if (last_selected) {
+              last_selected.classList.remove("selected");
+            }
+
+
+            elm.classList.add("selected");
+
             function createViewContent(data) {
               workarea.innerHTML = "";
 
               if (extension == 'js' || extension == "html" || extension == "css" || extension == "less" || extension == "json") {
                 var content = document.createElement("div");
                 content.classList.add("code__workarea__content");
-                content.innerText = data;
+                var container = document.createElement("div");
+                container.classList.add("code__workarea__content__code");
+                container.innerText = data;
+                content.appendChild(container);
                 workarea.appendChild(content);
               } else if (extension == 'svg') {
                 var content = document.createElement("div");
