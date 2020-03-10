@@ -2,11 +2,23 @@
   {
     "app_name": "Code",
     "id": "code",
-    "width": 60,
-    "height": 60,
+    "width": 80,
+    "height": 80,
     "x_position": 150,
     "y_position": 150,
     "dirApp": "./apps/code/code.html",
-    "jsFile": "./apps/code/code.js"
+    "jsFile": "./apps/code/code.js",
+    "icon_url": "./assets/icons/apps/code_app.svg"
+  },
+  {
+    "app_name": "Game Store",
+    "id": "gameStore",
+    "width": 80,
+    "height": 80,
+    "x_position": 150,
+    "y_position": 150,
+    "dirApp": "./apps/gamestore/gamestore.html",
+    "jsFile": "./apps/gamestore/gamestore.js",
+    "icon_url": "./assets/icons/apps/gamestore_app.svg"
   }
 ]

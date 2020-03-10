@@ -9,7 +9,7 @@ class appInstance {
     this.y_position = data.y_position || 10;
     this.z_position = data.z_position || 0;
     this.is_fullscreen = data.is_fullscreen || false;
-    this.icon_url = data.icon_url || "./assets/icons/generic_app_icon.svg";
+    this.icon_url = data.icon_url || "./assets/icons/apps/generic_app_icon.svg";
     this.dirApp = data.dirApp || "";
     this.jsFile = data.jsFile || "";
     this.visibility_flag = data.visibility_flag || true;
@@ -354,7 +354,7 @@ class menuApps {
 
       var app_icon = document.createElement("img");
       app_icon.classList.add("menu_apps__app__icon");
-      app_icon.src = data.icon_url || "./assets/icons/generic_app_icon.svg";
+      app_icon.src = data.icon_url || "./assets/icons/apps/generic_app_icon.svg";
 
       var app_name = document.createElement("div");
       app_name.classList.add("menu_apps__app__name");
