@@ -418,7 +418,7 @@ function init() {
   tool_bar.id = "tool_bar";
 
   var start_menu_icon = document.createElement("img");
-  start_menu_icon.src = "./assets/icons/menu_list.svg";
+  start_menu_icon.src = "./assets/icons/system/menu_list.svg";
   start_menu_icon.classList.add("tool_bar__start_menu__icon");
 
   var start_menu = document.createElement("div");

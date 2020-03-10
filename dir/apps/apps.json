@@ -4,8 +4,8 @@
     "id": "code",
     "width": 80,
     "height": 80,
-    "x_position": 150,
-    "y_position": 150,
+    "x_position": 80,
+    "y_position": 90,
     "dirApp": "./apps/code/code.html",
     "jsFile": "./apps/code/code.js",
     "icon_url": "./assets/icons/apps/code_app.svg"
@@ -15,8 +15,8 @@
     "id": "gameStore",
     "width": 80,
     "height": 80,
-    "x_position": 150,
-    "y_position": 150,
+    "x_position": 25,
+    "y_position": 190,
     "dirApp": "./apps/gamestore/gamestore.html",
     "jsFile": "./apps/gamestore/gamestore.js",
     "icon_url": "./assets/icons/apps/gamestore_app.svg"
