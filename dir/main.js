@@ -3,10 +3,10 @@ class appInstance {
     this.id = data.id || Math.floor(Math.random() * 65536);
     this.instanceId = this.id + "-" + Math.floor(Math.random() * 65536);
     this.app_name = data.app_name || this.instanceId;
-    this.width = data.width || 35;
-    this.height = data.height || 35;
-    this.x_position = data.x_position || 10;
+    this.width = data.width || "35vw";
+    this.height = data.height || "35vh";
     this.y_position = data.y_position || 10;
+    this.x_position = data.x_position || 10;
     this.z_position = data.z_position || 0;
     this.is_fullscreen = data.is_fullscreen || false;
     this.icon_url = data.icon_url || "./assets/icons/apps/generic_app_icon.svg";
@@ -18,7 +18,8 @@ class appInstance {
     this.appInstance = document.createElement("div");
     this.appInstance.classList.add("app");
     this.appInstance.id = this.instanceId;
-    window.last_window_z_position = this.z_position;
+    this.min_width = data.min_width || "800";
+    this.min_height = data.min_height || "400";
   }
 
   open() {
@@ -81,6 +82,27 @@ class appInstance {
       );
       top_bar.appendChild(close_button);
 
+      var board_right = document.createElement("div");
+      board_right.classList.add("app__board_right");
+      this.windowResizeByRightBoard(this.appInstance, board_right, this);
+      this.appInstance.appendChild(board_right);
+
+      var board_left = document.createElement("div");
+      board_left.classList.add("app__board_left");
+      this.windowResizeByLeftBoard(this.appInstance, board_left, this);
+      this.appInstance.appendChild(board_left);
+
+      var board_top = document.createElement("div");
+      board_top.classList.add("app__board_top");
+      this.windowResizeByTopBoard(this.appInstance, board_top, this);
+      this.appInstance.appendChild(board_top);
+
+      var board_bottom = document.createElement("div");
+      board_bottom.classList.add("app__board_bottom");
+      this.windowResizeByBottomBoard(this.appInstance, board_bottom, this);
+      this.appInstance.appendChild(board_bottom);
+
+
       this.appInstance.appendChild(top_bar);
       this.appInstance.appendChild(content);
 
@@ -95,6 +117,166 @@ class appInstance {
     xhr.send();
 
     window.appManager.firtPlaneApp(this);
+  }
+
+  windowResizeByRightBoard(elmnt, bord, context) {
+
+    var pos1 = 0,
+      pos2 = 0;
+
+    if (bord) {
+      bord.onmousedown = dragMouseDown;
+    } else {
+      elmnt.onmousedown = dragMouseDown;
+    }
+
+    function dragMouseDown(e) {
+      e = e || window.event;
+      e.preventDefault();
+      pos2 = e.clientX;
+      document.onmouseup = closeResize;
+      document.onmousemove = resize;
+    }
+
+    function resize(e) {
+      e = e || window.event;
+      e.preventDefault();
+      elmnt.style.cursor = "ew-resize";
+      pos1 = pos2 - e.clientX;
+      var resizeValue = elmnt.offsetWidth - pos1;
+      if (resizeValue > context.min_width) {
+        pos2 = e.clientX;
+        elmnt.style.width = resizeValue + "px";
+        context.width = resizeValue + "px";
+      }
+    }
+
+    function closeResize() {
+      document.onmouseup = null;
+      document.onmousemove = null;
+      elmnt.style.cursor = null;
+    }
+  }
+
+  windowResizeByLeftBoard(elmnt, bord, context) {
+
+    var pos1 = 0,
+      pos2 = 0;
+
+    if (bord) {
+      bord.onmousedown = dragMouseDown;
+    } else {
+      elmnt.onmousedown = dragMouseDown;
+    }
+
+    function dragMouseDown(e) {
+      e = e || window.event;
+      e.preventDefault();
+      pos2 = e.clientX;
+      document.onmouseup = closeResize;
+      document.onmousemove = resize;
+    }
+
+    function resize(e) {
+      e = e || window.event;
+      e.preventDefault();
+      elmnt.style.cursor = "ew-resize";
+      pos1 = pos2 - e.clientX;
+      var resizeValue = elmnt.offsetWidth + pos1;
+      if (resizeValue > context.min_width) {
+        pos2 = e.clientX;
+        elmnt.style.width = resizeValue + "px";
+        context.width = resizeValue + "px";
+        elmnt.style.left = context.x_position - pos1 + "px";
+        context.x_position = context.x_position - pos1;
+      }
+    }
+
+    function closeResize() {
+      document.onmouseup = null;
+      document.onmousemove = null;
+      elmnt.style.cursor = null;
+    }
+  }
+
+  windowResizeByTopBoard(elmnt, bord, context) {
+
+    var pos1 = 0,
+      pos2 = 0;
+
+    if (bord) {
+      bord.onmousedown = dragMouseDown;
+    } else {
+      elmnt.onmousedown = dragMouseDown;
+    }
+
+    function dragMouseDown(e) {
+      e = e || window.event;
+      e.preventDefault();
+      pos2 = e.clientY;
+      document.onmouseup = closeResize;
+      document.onmousemove = resize;
+    }
+
+    function resize(e) {
+      e = e || window.event;
+      e.preventDefault();
+      elmnt.style.cursor = "ns-resize";
+      pos1 = pos2 - e.clientY;
+      var resizeValue = elmnt.offsetHeight + pos1;
+      if (resizeValue > context.min_height) {
+        pos2 = e.clientY;
+        elmnt.style.height = resizeValue + "px";
+        context.height = resizeValue + "px";
+        elmnt.style.top = context.y_position - pos1 + "px";
+        context.y_position = context.y_position - pos1;
+      }
+    }
+
+    function closeResize() {
+      document.onmouseup = null;
+      document.onmousemove = null;
+      elmnt.style.cursor = null;
+    }
+  }
+
+  windowResizeByBottomBoard(elmnt, bord, context) {
+
+    var pos1 = 0,
+      pos2 = 0;
+
+    if (bord) {
+      bord.onmousedown = dragMouseDown;
+    } else {
+      elmnt.onmousedown = dragMouseDown;
+    }
+
+    function dragMouseDown(e) {
+      e = e || window.event;
+      e.preventDefault();
+      pos2 = e.clientY;
+      document.onmouseup = closeResize;
+      document.onmousemove = resize;
+    }
+
+    function resize(e) {
+      e = e || window.event;
+      e.preventDefault();
+      elmnt.style.cursor = "ns-resize";
+      pos1 = pos2 - e.clientY;
+      var resizeValue = elmnt.offsetHeight - pos1;
+      if (resizeValue > context.min_height) {
+        pos2 = e.clientY;
+        elmnt.style.height = resizeValue + "px";
+        context.height = resizeValue + "px";
+      }
+    }
+
+    function closeResize() {
+      document.onmouseup = null;
+      document.onmousemove = null;
+      elmnt.style.cursor = null;
+    }
   }
 
   moveApp(elmnt, header, context) {
@@ -128,8 +310,8 @@ class appInstance {
       let y = elmnt.offsetLeft - pos1;
       elmnt.style.top = x + "px";
       elmnt.style.left = y + "px";
-      context.x_position = x;
-      context.y_position = y;
+      context.y_position = x;
+      context.x_position = y;
     }
 
     function closeDragElement() {
@@ -157,13 +339,10 @@ class appInstance {
   }
 
   restore() {
-    this.appInstance.style.width = this.width + "vw";
-    this.appInstance.style.height = this.height + "vh";
-    this.appInstance.style.top = this.x_position + "px";
-    this.appInstance.style.left = this.y_position + "px";
-    this.z_position = window.last_window_z_position + this.z_position;
-    this.appInstance.style.zIndex = this.z_position;
-    window.last_window_z_position = this.z_position + 1;
+    this.appInstance.style.width = this.width;
+    this.appInstance.style.height = this.height;
+    this.appInstance.style.top = this.y_position + "px";
+    this.appInstance.style.left = this.x_position + "px";
     this.is_fullscreen = false;
     window.appManager.firtPlaneApp(this);
   }
@@ -171,7 +350,6 @@ class appInstance {
   maximize() {
     this.appInstance.style.width = "100vw";
     this.appInstance.style.height = "100vh";
-    this.appInstance.style.zIndex = 10000;
     this.appInstance.style.left = 0;
     this.appInstance.style.top = 0;
     this.is_fullscreen = true;
@@ -210,7 +388,9 @@ class appManager {
       var last_icon_instance = this.icons_locality.querySelector(
         "#" + this.firt_plane_app.instanceId + "i"
       );
-      last_icon_instance.classList.remove("active");
+      if (last_icon_instance) {
+        last_icon_instance.classList.remove("active");
+      }
     }
 
     var icon_instance = this.icons_locality.querySelector(
@@ -222,9 +402,11 @@ class appManager {
       this.firt_plane_app = appInstance;
     }
 
-    appInstance.z_position = window.last_window_z_position + appInstance.z_position;
-    appInstance.appInstance.style.zIndex = appInstance.z_position;
-    window.last_window_z_position = appInstance.z_position + 1;
+    var last_first_plane_app = this.desktop.querySelector(".first_plane");
+    if (last_first_plane_app) {
+      last_first_plane_app.classList.remove("first_plane");
+    }
+    appInstance.appInstance.classList.add("first_plane");
   }
 
   removeFirtPlaneApp(appInstance) {

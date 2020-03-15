@@ -60,12 +60,12 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: @middle_up__primary_color__dark;
+  background: @full__tertiary_color__light;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: @hight__primary_color__dark;
+  background: @full__secondary_color__light;
 }
 
 ::-webkit-scrollbar-corner {
@@ -203,6 +203,54 @@ body {
   left: 20vw;
   background-color: @middle_up__primary_color__dark;
   box-shadow: 0 1px 3px @shadow;
+  z-index: 0;
+  opacity: 50%;
+
+  &.first_plane {
+    z-index: 1;
+    opacity: 100%;
+  }
+
+  &__board_right {
+    position: absolute;
+    //background: red;
+    width: 2px;
+    height: 100%;   
+    right: 0;
+    z-index: 10;
+    cursor: ew-resize;
+  }
+
+  &__board_left {
+    position: absolute;
+    //background: greenyellow;
+    width: 2px;
+    height: 100%;
+    left: 0;
+    z-index: 10;
+    cursor: ew-resize;
+  }
+
+  &__board_top {
+    top: 0;
+    cursor: ns-resize;
+    position: absolute;
+    //background: yellow;
+    width: 100%;
+    height: 2px; 
+    z-index: 10;   
+
+  }
+
+  &__board_bottom {    
+    bottom: 0;
+    cursor: ns-resize;
+    position: absolute;
+    //background: yellow;
+    width: 100%;
+    height: 2px; 
+    z-index: 10;
+  }
 
   &__top_bar {
     height: 20px;

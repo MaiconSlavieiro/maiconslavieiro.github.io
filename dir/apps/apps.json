@@ -2,8 +2,8 @@
   {
     "app_name": "Code",
     "id": "code",
-    "width": 80,
-    "height": 80,
+    "width": "80vw",
+    "height": "80vh",
     "x_position": 80,
     "y_position": 90,
     "dirApp": "./apps/code/code.html",
@@ -13,8 +13,8 @@
   {
     "app_name": "Game Store",
     "id": "gameStore",
-    "width": 80,
-    "height": 80,
+    "width": "80vw",
+    "height": "80vh",
     "x_position": 25,
     "y_position": 190,
     "dirApp": "./apps/gamestore/gamestore.html",
