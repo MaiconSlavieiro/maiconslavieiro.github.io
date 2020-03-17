@@ -1,3 +1,28 @@
+function loadJSON(callback, path) {
+  var xobj = new XMLHttpRequest();
+  xobj.overrideMimeType("application/json");
+  xobj.open("GET", path, true);
+  xobj.onreadystatechange = function () {
+    if (xobj.readyState == 4 && xobj.status == "200") {
+      callback(xobj.responseText);
+    }
+  };
+  xobj.send(null);
+}
+
+var convertPx2 = {
+  vh: function (px) {
+    px = parseFloat(px);
+    var wh = window.innerHeight;
+    return (px * 100) / wh + "vh";
+  },
+  vw: function (px) {
+    px = parseFloat(px);
+    var ww = window.innerWidth;
+    return ((px * 100) / ww) + "vw";
+  }
+}
+
 class appInstance {
   constructor(desktop, data) {
     this.id = data.id || Math.floor(Math.random() * 65536);
@@ -146,8 +171,8 @@ class appInstance {
       var resizeValue = elmnt.offsetWidth - pos1;
       if (resizeValue > context.min_width) {
         pos2 = e.clientX;
-        elmnt.style.width = resizeValue + "px";
-        context.width = resizeValue + "px";
+        elmnt.style.width = convertPx2.vw(resizeValue);
+        context.width = convertPx2.vw(resizeValue);
       }
     }
 
@@ -185,8 +210,8 @@ class appInstance {
       var resizeValue = elmnt.offsetWidth + pos1;
       if (resizeValue > context.min_width) {
         pos2 = e.clientX;
-        elmnt.style.width = resizeValue + "px";
-        context.width = resizeValue + "px";
+        elmnt.style.width = convertPx2.vw(resizeValue);
+        context.width = convertPx2.vw(resizeValue);
         elmnt.style.left = context.x_position - pos1 + "px";
         context.x_position = context.x_position - pos1;
       }
@@ -226,8 +251,8 @@ class appInstance {
       var resizeValue = elmnt.offsetHeight + pos1;
       if (resizeValue > context.min_height) {
         pos2 = e.clientY;
-        elmnt.style.height = resizeValue + "px";
-        context.height = resizeValue + "px";
+        elmnt.style.height = convertPx2.vh(resizeValue);
+        context.height = convertPx2.vh(resizeValue);
         elmnt.style.top = context.y_position - pos1 + "px";
         context.y_position = context.y_position - pos1;
       }
@@ -566,18 +591,6 @@ class menuApps {
     this.menu_apps_element.classList.remove("show");
     this.visibility_flag = false;
   }
-}
-
-function loadJSON(callback, path) {
-  var xobj = new XMLHttpRequest();
-  xobj.overrideMimeType("application/json");
-  xobj.open("GET", path, true);
-  xobj.onreadystatechange = function () {
-    if (xobj.readyState == 4 && xobj.status == "200") {
-      callback(xobj.responseText);
-    }
-  };
-  xobj.send(null);
 }
 
 function init() {
